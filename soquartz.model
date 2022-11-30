@@ -1,0 +1,38 @@
+type: model
+authority-id: 614iAngR4rHH2bVbZO4LNL85289fPJkG
+series: 16
+brand-id: 614iAngR4rHH2bVbZO4LNL85289fPJkG
+model: jmbrock-soquartz
+architecture: arm64
+base: core22
+grade: dangerous
+snaps:
+  -
+    name: soquartz
+    type: gadget
+  -
+    name: soquartz-kernel
+    type: kernel
+  -
+    default-channel: latest/stable
+    id: amcUKQILKXHHTlmSa7NMdnXSx02dNeeT
+    name: core22
+    type: base
+  -
+    default-channel: latest/stable
+    id: PMrrV4ml8uWuEUDBT8dSGnKUYbevVhc4
+    name: snapd
+    type: snapd
+timestamp: 2022-11-30T19:45:11+00:00
+sign-key-sha3-384: mIDTGp59p9RrNDBYE6V4i0l1viycpIhhNZfYayMp5dUIZNipOXrpeqCO6fJWOs2y
+
+AcLBcwQAAQoAHRYhBBUZOTV5F/vGjAvhYX66AgTd/jyjBQJjh7N0AAoJEH66AgTd/jyj8/8QAIAt
+Ibee8G4bc3HM4fBSnT2VxBFr/IIsK+IZcgN1YR7TiMR5p0zPEa/XdKXfXcPo3zNlyJCo9bYJjSnk
+H0gEwOGmWZxopR33sKIJq7vptBTsErPYE79cEZBEJJNFJdlcJ7cjo/i1nUf+TiiHn/vfjYiHqrj9
+dhMmNP1Fp6TPS1knPZI5E05/5rruOMcOHrjzaLW9yTf/uAIKJJSNb5ZRF73QFNim+H6HwZBQ9BpR
+geolhAhfjGgzmtAtaUY57cZxLTUuwuv++foo1rvqf/KvZzjuzzEaR54ofLmPrfH5bGlKW4z0hp0T
+6hB4YyQ6MoqwkNFVJwrUT/hgQKNmR33ym9UVLZzOZk4mmUCp/NTpFELj4oZactjtOUS4OkodpmDi
+ZyEciTpMaJwBTQtVzjTIV/m+35dAvcAjbS/Bj5iLTjqhG0L2le7Vu6ZaAHWy89YN+LzxqSqQlFaH
+PJ/oC6ipdEEGBvDVrF4ahWAKeaV02XHdvHIFp73+/2k5LIM9ezf2pwa1IDf+/4CfSEhBpwel0o0E
+Qx7lppulT5oGODt0cE2uJ7vQHbCrBnwXg/Upzz3SzgRr8+uUkwy0zKxAKE0SlqQPhh1kktAzJ4M/
+2AufU/bkvqFtTs22RVATPyAfspe5IzCdo/RFZa2YHV7RaZhQ5kJqY2NKw6FXOQiNRMThO7Yc

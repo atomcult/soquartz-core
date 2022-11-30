@@ -1,0 +1,92 @@
+name: soquartz-kernel
+adopt-info: kernel
+summary: Kernel for Pine64's SOQuartz CM4 board
+build-base: core22
+description: |
+  pgwipeout's linux-next kernel fork adapted for Ubuntu Core
+type: kernel
+grade: stable
+confinement: strict
+architectures:
+  - build-on: [amd64]
+    build-for: [arm64]
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [jammy]
+    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
+    url: http://ppa.launchpad.net/snappy-dev/image/ubuntu/
+    architectures: [arm64]
+  - type: apt
+    components: [main, universe]
+    suites: [jammy, jammy-updates]
+    url: http://ports.ubuntu.com/
+    formats: [deb]
+    architectures: [arm64]
+    key-id: F6ECB3762474EDA9D21B7022871920D1991BC93C
+
+parts:
+
+  # core-patches:
+  #   # Taken from https://github.com/RuhanvanderBerg/UbuntuCore-5.10.y-kernelpatch
+  #   plugin: dump
+  #   source: ./patches
+  #   prime:
+  #     - -*
+
+  defconfig:
+    plugin: dump
+    source: https://gitlab.com/pgwipeout/quartz64_ci.git
+    stage:
+      - quartz64_defconfig
+    prime:
+      - -*
+
+  firmware:
+    plugin: dump
+    source: ./firmware.tar.xz
+    organize:
+      '*': firmware/
+    stage:
+      - -firmware/brcm/BCM43430A1.hcd
+      - -firmware/brcm/BCM4345C5.hcd
+
+  kernel:
+    after: [defconfig]
+    plugin: kernel
+    source: https://gitlab.com/pgwipeout/linux-next.git
+    source-type: git
+    source-branch: quartz64-v5.19
+    kernel-kdefconfig:
+      - quartz64_defconfig
+      - snappy/*.config
+    kernel-with-firmware: false
+    kernel-build-efi-image: false
+    build-packages:
+      - build-essential
+      - bison
+      - flex
+      - libssl-dev
+      - libelf-dev
+      - on arm64:
+        - gcc
+      - else:
+        - gcc-aarch64-linux-gnu
+    stage-packages:
+      - wireless-regdb:all
+      - bluez-firmware:all
+    override-pull: |
+      craftctl default
+      for file in ${CRAFT_PROJECT_DIR}/patches/*.patch; do
+        patch -p1 < ${file}
+      done
+    override-build: |
+      cd "$CRAFT_PART_SRC"
+      craftctl set version=`make -s kernelversion`
+
+      cp ${CRAFT_STAGE}/quartz64_defconfig arch/arm64/configs/
+      craftctl default
+
+      rm ${CRAFT_PART_INSTALL}/Image.gz*
+      mv ${CRAFT_PART_INSTALL}/kernel.img{,.gz}
+      gunzip -f ${CRAFT_PART_INSTALL}/kernel.img.gz

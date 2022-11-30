@@ -1,0 +1,96 @@
+name: soquartz
+type: gadget
+base: core22
+version: 22-1
+summary: Gadget snap for Pine64's SOQuartz CM4 board
+description: |
+  This is my-snap's description. You have a paragraph or two to tell the
+  most important story about your snap. Keep it under 100 words though,
+  we live in tweetspace and your description wants to look good in the snap
+  store.
+architectures:
+  - build-on:  [amd64]
+    build-for: [arm64]
+
+grade: stable
+confinement: strict
+
+parts:
+
+  rkbin:
+    plugin: dump
+    source: https://github.com/JeffyCN/rockchip_mirrors/archive/refs/heads/rkbin.zip
+    organize:
+      rockchip_mirrors-rkbin: rkbin
+    prime:
+      - -*
+
+  boot-scr:
+    after: [rkbin]
+    plugin: nil
+    source: src/
+    build-packages:
+      - u-boot-tools
+    override-build: |
+      ${CRAFT_STAGE}/rkbin/tools/mkimage \
+        -T script \
+        -A arm64 \
+        -C none \
+        -n 'Boot Script' \
+        -d boot.scr.in \
+        "${CRAFT_PART_INSTALL}/boot.scr"
+
+  u-boot:
+    after: [rkbin]
+    plugin: make
+    source: https://gitlab.com/pgwipeout/u-boot-rockchip
+    source-type: git
+    source-branch: quartz64
+    source-depth: 1
+    build-packages:
+      - build-essential
+      - bc
+      - bison
+      - flex
+      - libssl-dev
+      - libncurses5-dev
+      - libelf-dev
+      - wget
+      - time
+      - xz-utils
+      - device-tree-compiler
+      - kmod
+      - python-is-python3
+      - python3-pip
+      - on amd64:
+        - gcc-aarch64-linux-gnu
+      - else:
+        - gcc
+    override-build: |
+      export ARCH=arm64
+      export CROSS_COMPILE=aarch64-linux-gnu-
+
+      python3 -m pip install pyelftools
+
+      make rk3566-quartz64_defconfig
+
+      sed 's|../rkbin|${CRAFT_STAGE}/rkbin|' -i make.sh
+      sed -r 's/-W(all|error) //g' -i Makefile
+      ./make.sh
+
+      "${CRAFT_STAGE}"/rkbin/tools/resource_tool --pack arch/arm/dts/rk3566-quartz64.dtb
+
+      tools/mkenvimage \
+        -r -s 4096 \
+        -o "${CRAFT_PART_INSTALL}/boot.sel" - < /dev/null
+
+      files="idblock.bin \
+            uboot.img \
+            resource.img \
+            rk356x_spl_loader_*bin \
+            arch/arm/dts/rk3566-quartz64.dtb"
+      for file in $files; do
+        cp "${file}" "${CRAFT_PART_INSTALL}"
+      done
+
+      touch ${CRAFT_PART_INSTALL}/uboot.conf

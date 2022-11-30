@@ -1,0 +1,9 @@
+# snapcraft
+*.snap
+parts/
+stage/
+prime/
+
+# ubuntu-image
+*.img
+seed.manifest

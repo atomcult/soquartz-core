@@ -1,0 +1,33 @@
+{
+    "type": "model",
+    "series": "16",
+    "authority-id": "614iAngR4rHH2bVbZO4LNL85289fPJkG",
+    "brand-id": "614iAngR4rHH2bVbZO4LNL85289fPJkG",
+    "model": "jmbrock-soquartz",
+    "architecture": "arm64",
+    "timestamp": "2022-11-30T19:45:11+00:00",
+    "base": "core22",
+    "grade": "dangerous",
+    "snaps": [
+        {
+            "name": "soquartz",
+            "type": "gadget"
+        },
+        {
+            "name": "soquartz-kernel",
+            "type": "kernel"
+        },
+        {
+            "name": "core22",
+            "type": "base",
+            "default-channel": "latest/stable",
+            "id": "amcUKQILKXHHTlmSa7NMdnXSx02dNeeT"
+        },
+        {
+            "name": "snapd",
+            "type": "snapd",
+            "default-channel": "latest/stable",
+            "id": "PMrrV4ml8uWuEUDBT8dSGnKUYbevVhc4"
+        }
+    ]
+}
