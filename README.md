@@ -26,5 +26,5 @@ ubuntu-image snap soquartz.model \
 
 # Install
 ```sh
-sudo dd if=quartz64.img bs=4M of=/dev/sdX status=progress oflag=sync
+sudo dd if=soquartz.img bs=4M of=/dev/sdX status=progress oflag=sync
 ```
