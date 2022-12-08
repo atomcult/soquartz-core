@@ -26,14 +26,6 @@ package-repositories:
     key-id: F6ECB3762474EDA9D21B7022871920D1991BC93C
 
 parts:
-
-  # core-patches:
-  #   # Taken from https://github.com/RuhanvanderBerg/UbuntuCore-5.10.y-kernelpatch
-  #   plugin: dump
-  #   source: ./patches
-  #   prime:
-  #     - -*
-
   defconfig:
     plugin: dump
     source: https://gitlab.com/pgwipeout/quartz64_ci.git
