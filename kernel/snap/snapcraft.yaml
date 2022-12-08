@@ -68,10 +68,7 @@ parts:
       - flex
       - libssl-dev
       - libelf-dev
-      - on arm64:
-        - gcc
-      - else:
-        - gcc-aarch64-linux-gnu
+      - gcc-aarch64-linux-gnu
     stage-packages:
       - wireless-regdb:all
       - bluez-firmware:all
