@@ -1,6 +1,6 @@
 # Build
 
-This will permanently modify your system, so it is preferred to build this snap in a disposable environment, such as an LXD container.
+This will permanently modify your system, so it is preferred to build these snaps in a disposable environment, such as an LXD container.
 The build **MUST** be performed on **Ubuntu 22.04**.
 
 ```sh
