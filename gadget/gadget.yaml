@@ -16,7 +16,6 @@ volumes:
         size: 8M
         content:
           - image: uboot.img
-          # - image: rk356x_spl_loader_v1.13.112.bin
 
       - name: ubuntu-seed
         role: system-seed
