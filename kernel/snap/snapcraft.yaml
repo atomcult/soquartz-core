@@ -12,12 +12,6 @@ architectures:
     build-for: [arm64]
 package-repositories:
   - type: apt
-    components: [main]
-    suites: [jammy]
-    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
-    url: http://ppa.launchpad.net/snappy-dev/image/ubuntu/
-    architectures: [arm64]
-  - type: apt
     components: [main, universe]
     suites: [jammy, jammy-updates]
     url: http://ports.ubuntu.com/
